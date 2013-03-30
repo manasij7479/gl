@@ -1,11 +1,12 @@
 CXX:= g++
+AR:= ar
 CXXFLAGS :=-c -Wall -std=c++11 -g
-LDFLAGS := -lpthread -lGL -lGLEW -lsfml-system -lsfml-window
+# LDFLAGS := -lpthread -lGL -lGLEW -lsfml-system -lsfml-window
 # Sources are all .cpp files in this dir
 SRCS := $(wildcard *.cpp)
 # Object files are everything in $SRCS, with the .cpp replaced by a .o
 OBJS := $(patsubst %.cpp, %.o, $(SRCS))
-TARGET := main
+TARGET := libframework.a
 
 # Default target makes the executable
 default : $(TARGET)
@@ -21,13 +22,8 @@ default : $(TARGET)
 # Use all the requisites ($^), as input files (the .o files) for the linker
 # Output file is $TARGET, which is executable_name
 $(TARGET) : $(OBJS)
-	$(CXX) $(LDFLAGS) $^ -o $(TARGET)
+	$(AR) rcs $(TARGET)  $^
 
 # Simple clean up target
 clean :
-	rm -f $(OBJS) $(TARGET) *~
-
-redo:
-	make -s clean
-	make -s -j9
-	./$(TARGET)
+	rm -f $(OBJS) $(TARGET) *~ *.a *.o
