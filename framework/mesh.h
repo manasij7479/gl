@@ -37,19 +37,19 @@ namespace mm
 	class Mesh
 	{
 	public:
-		Mesh(std::string dataf,std::string vsf,std::string fsf);//File names
-		Mesh(std::string dataf,mm::Program* prog_);
-		void draw();
-		mm::Program* getProgram()
-		{
-			return prog;
-		}
+// 		Mesh(std::string dataf,std::string vsf,std::string fsf);//File names
+// 		Mesh(std::string dataf,mm::Program* prog_);
+		virtual void draw()=0;
+		virtual mm::Program* getProgram()=0;
+// 		{
+// 			return prog;
+// 		}
 	private:
-		mm::Program* prog;
-		GLuint vao;
-		std::map<std::string,GLuint> vbomap;
-		GLenum drawmode;
-		int isize;
+// 		mm::Program* prog;
+// 		GLuint vao;
+// 		std::map<std::string,GLuint> vbomap;
+// 		GLenum drawmode;
+// 		int isize;
 	};
 }
 
