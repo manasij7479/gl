@@ -37,88 +37,88 @@ namespace mm
 		{"GL_QUAD_STRIP",GL_QUAD_STRIP},
 		{"GL_POLYGON",GL_POLYGON}
 	};
-	Mesh::Mesh(std::string dataf, Program* prog_)
-	{
-		prog = prog_;
-		glUseProgram(prog->getHandle());
-		std::ifstream dat(dataf);
-		if(!dat)
-			throw(std::runtime_error("File: "+dataf+" not found."));
-		
-		glGenVertexArrays(1,&vao);
-		glBindVertexArray(vao);
-		
-		std::string name;
-		while(dat>>name)
-		{
-			if(name=="index")
-			{
-				int &x=isize;
-				dat>>x;
-				GLuint ibo;
-				GLubyte* index = new GLubyte[x];
-				for(int i=0;i<x;++i)
-				{
-					int temp;
-					dat>>temp;
-					index[i]=static_cast<GLubyte>(temp);
-				}
-				glGenBuffers(1,&ibo);
-				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ibo);
-				glBufferData(GL_ELEMENT_ARRAY_BUFFER,x*sizeof(GLubyte),index,GL_STATIC_DRAW);
-				
-				vbomap["index"]=ibo;
-			}
-			if(name=="draw")
-			{
-				std::string mode;
-				dat>>mode;
-				drawmode=modeTable[mode];
-			}
-			else
-			{
-				int m,n;
-				dat>>m>>n;
-				GLuint vbo;
-				GLfloat* data=new GLfloat[m*n];
-				for(int i=0;i<m*n;++i)
-				{
-					dat>>data[i];
-				}
-				glGenBuffers(1,&vbo);
-				glBindBuffer(GL_ARRAY_BUFFER,vbo);
-				glBufferData(GL_ARRAY_BUFFER,m*n*sizeof(GLfloat),data,GL_STATIC_DRAW);
-				GLint loc = glGetAttribLocation(prog->getHandle(),name.c_str());
-				glVertexAttribPointer(loc,n,GL_FLOAT,GL_FALSE,0,0);
-				glEnableVertexAttribArray(loc);
-				
-				vbomap[name]=vbo;
-			}
-		}
-	}
-
-	Mesh::Mesh(std::string dataf, std::string vsf, std::string fsf):
-	Mesh //Delegated constructor 
-	(
-		dataf,
-		new mm::Program
-		(
-			{
-				mm::Shader(GL_VERTEX_SHADER,vsf),
-				mm::Shader(GL_FRAGMENT_SHADER,fsf)
-			}
-		)
-	)
-	{
-	}
-	void Mesh::draw()
-	{
-		glUseProgram(prog->getHandle());
-		glBindVertexArray(vao);
-		glDrawElements(drawmode,isize,GL_UNSIGNED_BYTE,0);
-		glBindVertexArray(0);
-		glUseProgram(0);
-	}
+// 	Mesh::Mesh(std::string dataf, Program* prog_)
+// 	{
+// 		prog = prog_;
+// 		glUseProgram(prog->getHandle());
+// 		std::ifstream dat(dataf);
+// 		if(!dat)
+// 			throw(std::runtime_error("File: "+dataf+" not found."));
+// 		
+// 		glGenVertexArrays(1,&vao);
+// 		glBindVertexArray(vao);
+// 		
+// 		std::string name;
+// 		while(dat>>name)
+// 		{
+// 			if(name=="index")
+// 			{
+// 				int &x=isize;
+// 				dat>>x;
+// 				GLuint ibo;
+// 				GLubyte* index = new GLubyte[x];
+// 				for(int i=0;i<x;++i)
+// 				{
+// 					int temp;
+// 					dat>>temp;
+// 					index[i]=static_cast<GLubyte>(temp);
+// 				}
+// 				glGenBuffers(1,&ibo);
+// 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ibo);
+// 				glBufferData(GL_ELEMENT_ARRAY_BUFFER,x*sizeof(GLubyte),index,GL_STATIC_DRAW);
+// 				
+// 				vbomap["index"]=ibo;
+// 			}
+// 			if(name=="draw")
+// 			{
+// 				std::string mode;
+// 				dat>>mode;
+// 				drawmode=modeTable[mode];
+// 			}
+// 			else
+// 			{
+// 				int m,n;
+// 				dat>>m>>n;
+// 				GLuint vbo;
+// 				GLfloat* data=new GLfloat[m*n];
+// 				for(int i=0;i<m*n;++i)
+// 				{
+// 					dat>>data[i];
+// 				}
+// 				glGenBuffers(1,&vbo);
+// 				glBindBuffer(GL_ARRAY_BUFFER,vbo);
+// 				glBufferData(GL_ARRAY_BUFFER,m*n*sizeof(GLfloat),data,GL_STATIC_DRAW);
+// 				GLint loc = glGetAttribLocation(prog->getHandle(),name.c_str());
+// 				glVertexAttribPointer(loc,n,GL_FLOAT,GL_FALSE,0,0);
+// 				glEnableVertexAttribArray(loc);
+// 				
+// 				vbomap[name]=vbo;
+// 			}
+// 		}
+// 	}
+// 
+// 	Mesh::Mesh(std::string dataf, std::string vsf, std::string fsf):
+// 	Mesh //Delegated constructor 
+// 	(
+// 		dataf,
+// 		new mm::Program
+// 		(
+// 			{
+// 				mm::Shader(GL_VERTEX_SHADER,vsf),
+// 				mm::Shader(GL_FRAGMENT_SHADER,fsf)
+// 			}
+// 		)
+// 	)
+// 	{
+// 	}
+// 	void Mesh::draw()
+// 	{
+// 		glUseProgram(prog->getHandle());
+// 		glBindVertexArray(vao);
+// 		glDrawElements(drawmode,isize,GL_UNSIGNED_BYTE,0);
+// 		glBindVertexArray(0);
+// 		glUseProgram(0);
+// 	}
 
 
 }

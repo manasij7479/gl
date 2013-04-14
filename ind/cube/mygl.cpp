@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "mesh.h"
+#include "oldmesh.h"
 #include <glm/glm.hpp>  
 #include <glm/gtc/matrix_transform.hpp>
 #include<iostream>
@@ -12,7 +12,7 @@ void setup()
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
-	mesh = new mm::Mesh("datafile","vvec3mvp.glsl","fvcol.glsl");
+	mesh = new mm::OldMesh("datafile","vvec3mvp.glsl","fvcol.glsl");
 	auto prog = mesh->getProgram();
 	
 	glm::mat4 p = glm::perspective(60.0f,global::winSizeX*1.0f/global::winSizeY,0.1f,100.0f);

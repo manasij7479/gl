@@ -11,6 +11,5 @@ lib:
 $(TARGET): $(SRC) lib
 	g++ $(SRC) -I$(DIR) -L$(DIR) $(LDFLAGS) $(CXXFLAGS) -o $(TARGET)
 clean:
-	rm $(TARGET)
 	make clean -C $(DIR)
-	
+	rm $(TARGET)

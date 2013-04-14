@@ -15,42 +15,30 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-/*
- *Class to read in mesh descriptions from a file of the following format.
- * <Name> M vecN
- * <MxN whitespace separated values>
- * 
- * index X
- * <X whitespace separated values>
- * 
- * drawmode <mode>
- */
 
-#ifndef MM_MESH_H
-#define MM_MESH_H
-#include <string>
-#include <vector>
-#include <map>
-#include "framework.h"
+
+#ifndef OLDMESH_H
+#define OLDMESH_H
+#include "mesh.h"
 namespace mm
 {
-	class Mesh
+	class OldMesh:public Mesh
 	{
 	public:
-// 		Mesh(std::string dataf,std::string vsf,std::string fsf);//File names
-// 		Mesh(std::string dataf,mm::Program* prog_);
-		virtual void draw()=0;
-		virtual mm::Program* getProgram()=0;
-// 		{
-// 			return prog;
-// 		}
+		OldMesh(std::string dataf,std::string vsf,std::string fsf);//File names
+		OldMesh(std::string dataf,mm::Program* prog_);
+		void draw();
+		mm::Program* getProgram()
+		{
+			return prog;
+		}
 	private:
-// 		mm::Program* prog;
-// 		GLuint vao;
-// 		std::map<std::string,GLuint> vbomap;
-// 		GLenum drawmode;
-// 		int isize;
+		mm::Program* prog;
+		GLuint vao;
+		std::map<std::string,GLuint> vbomap;
+		GLenum drawmode;
+		int isize;
 	};
+	
 }
-
-#endif // MESH_H
+#endif // OLDMESH_H
