@@ -19,9 +19,28 @@
 
 #ifndef ASSIMPMESH_H
 #define ASSIMPMESH_H
-
-class AssimpMesh
+#include<map>
+// #include <assimp/Importer.hpp> // C++ importer interface
+#include <assimp/scene.h> // Output data structure
+// #include <assimp/postprocess.h> // Post processing flags
+#include "mesh.h"
+namespace mm
 {
-};
-
+	class AssimpMesh:public Mesh
+	{
+	public:
+		AssimpMesh(std::string dataf,std::string vsf,std::string fsf);
+		AssimpMesh(const std::string& dataf,Program* prog_);
+		void draw();
+		mm::Program* getProgram(){return prog;};
+		
+	private:
+		mm::Program* prog;
+		const aiScene* scene;
+		const aiMesh* mesh;
+		GLuint vao;
+		std::map<std::string,GLuint> vbomap;
+		int isize;
+	};
+}
 #endif // ASSIMPMESH_H

@@ -119,7 +119,5 @@ namespace mm
 		glBindVertexArray(0);
 		glUseProgram(0);
 	}
-
-
 }
 

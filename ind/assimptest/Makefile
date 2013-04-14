@@ -3,7 +3,7 @@ DIR:=../../framework/
 SRC:=mygl.cpp
 CXX:=g++
 CXXFLAGS :=-Wall -std=c++11 -g
-LDFLAGS := -lframework -lpthread -lGL -lGLEW -lsfml-system -lsfml-window
+LDFLAGS := -lframework -lpthread -lGL -lGLEW -lsfml-system -lsfml-window -lassimp
 default: $(TARGET)
 	
 lib:
@@ -11,6 +11,5 @@ lib:
 $(TARGET): $(SRC) lib
 	g++ $(SRC) -I$(DIR) -L$(DIR) $(LDFLAGS) $(CXXFLAGS) -o $(TARGET)
 clean:
-	rm $(TARGET)
 	make clean -C $(DIR)
-	
+	rm $(TARGET)
