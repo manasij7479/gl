@@ -21,7 +21,6 @@
 #include <assimp/postprocess.h> // Post processing flags
 #include "assimpmesh.h"
 #include<stdexcept>
-#include<iostream>
 namespace mm
 {
 	AssimpMesh::AssimpMesh(const std::string& dataf, Program* prog_)
@@ -32,7 +31,7 @@ namespace mm
 			aiProcess_CalcTangentSpace |
 			aiProcess_Triangulate |
 			aiProcess_JoinIdenticalVertices |
-// 			aiProcess_SortByPType|
+			aiProcess_SortByPType|
 			aiProcess_GenNormals );
 		if(!scene)
 			throw(std::runtime_error("Loading "+dataf+" failed: "+importer.GetErrorString()));
@@ -45,7 +44,6 @@ namespace mm
 		if(!mesh->HasFaces() || !mesh->HasNormals())
 			throw(std::runtime_error("Mesh doesn't have Indices or Vertex Normals"));
 		
-		///TODO:Create OpenGL structures from the information below;
 		glUseProgram(prog->getHandle());
 		glGenVertexArrays(1,&vao);
 		glBindVertexArray(vao);
@@ -53,20 +51,20 @@ namespace mm
 		GLfloat* vertices,*normals;
 		vertices = new GLfloat[3*mesh->mNumVertices];
 		normals = new GLfloat[3*mesh->mNumVertices];
-		GLubyte* indices = new GLubyte[3*mesh->mNumFaces];
+		GLuint* indices = new GLuint[3*mesh->mNumFaces];
 		
 		for(uint i=0;i<mesh->mNumVertices;++i)
 		{
 			auto v = mesh->mVertices[i];
 			auto n = mesh->mNormals[i];
-			std::cout<<"v: "<<v.x<<' '<<v.y<<' '<<v.z<<" n: "<<n.x<<' '<<n.y<<' '<<n.z<<std::endl;
+// 			std::cout<<"v: "<<v.x<<' '<<v.y<<' '<<v.z<<" n: "<<n.x<<' '<<n.y<<' '<<n.z<<std::endl;
 			vertices[3*i+0]=v.x;vertices[3*i+1]=v.y;vertices[3*i+2]=v.z;
 			normals[3*i+0]=n.x;normals[3*i+1]=n.y;normals[3*i+2]=n.z;
 		}
 		for(uint i=0;i<mesh->mNumFaces;++i)
 		{
 			auto f = mesh->mFaces[i];
-			std::cout<<f.mIndices[0]<<' '<<f.mIndices[1]<<' '<<f.mIndices[2]<<' '<<std::endl;
+// 			std::cout<<f.mIndices[0]<<' '<<f.mIndices[1]<<' '<<f.mIndices[2]<<' '<<std::endl;
 			indices[3*i+0]=f.mIndices[0];
 			indices[3*i+1]=f.mIndices[1];
 			indices[3*i+2]=f.mIndices[2];
@@ -92,14 +90,16 @@ namespace mm
 		isize=3*mesh->mNumFaces;
 		glGenBuffers(1,&ibo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER,isize*sizeof(GLubyte),indices,GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER,isize*sizeof(GLuint),indices,GL_STATIC_DRAW);
 		vbomap["index"]=ibo;
 		
-		
+		delete[] vertices;
+		delete[] normals;
+		delete[] indices;
 
 	}
 	AssimpMesh::AssimpMesh(std::string dataf, std::string vsf,const  std::string fsf):
-	AssimpMesh //Delegated constructor 
+	AssimpMesh
 	(
 		dataf,
 		new mm::Program
@@ -118,7 +118,7 @@ namespace mm
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(prog->getHandle());
 		glBindVertexArray(vao);
-		glDrawElements(GL_TRIANGLES,isize,GL_UNSIGNED_BYTE,0);
+		glDrawElements(GL_TRIANGLES,isize,GL_UNSIGNED_INT,0);
 		glBindVertexArray(0);
 		glUseProgram(0);
 	}

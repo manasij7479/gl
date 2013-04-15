@@ -32,6 +32,7 @@ namespace mm
 		{
 			return prog;
 		}
+		~OldMesh(){delete prog;};
 	private:
 		mm::Program* prog;
 		GLuint vao;

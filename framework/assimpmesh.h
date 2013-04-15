@@ -33,7 +33,7 @@ namespace mm
 		AssimpMesh(const std::string& dataf,Program* prog_);
 		void draw();
 		mm::Program* getProgram(){return prog;};
-		
+		~AssimpMesh(){delete prog;}
 	private:
 		mm::Program* prog;
 		const aiScene* scene;
