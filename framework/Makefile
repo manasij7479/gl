@@ -1,4 +1,4 @@
-CXX:= g++
+CXX:= clang++
 AR:= ar
 CXXFLAGS :=-c -Wall -std=c++11 -g
 # LDFLAGS := -lpthread -lGL -lGLEW -lsfml-system -lsfml-window

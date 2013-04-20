@@ -9,7 +9,7 @@ default: $(TARGET)
 lib:
 	make -j9 -C $(DIR) 
 $(TARGET): $(SRC) lib
-	g++ $(SRC) -I$(DIR) -L$(DIR) $(LDFLAGS) $(CXXFLAGS) -o $(TARGET)
+	clang++ $(SRC) -I$(DIR) -L$(DIR) $(LDFLAGS) $(CXXFLAGS) -o $(TARGET)
 clean:
 	make clean -C $(DIR)
 	rm $(TARGET)
