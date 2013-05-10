@@ -45,3 +45,10 @@ void draw()
 		init=std::clock();
 	}
 }
+int main()
+{
+	mm::Framework f;
+	f.drawFunction(draw);
+	f.setupFunction(setup);
+	return f();
+}

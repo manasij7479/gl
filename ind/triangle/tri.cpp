@@ -13,3 +13,10 @@ void draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 	mesh->draw();
 }
+int main()
+{
+    mm::Framework f;
+    f.drawFunction(draw);
+    f.setupFunction(setup);
+    return f();
+}

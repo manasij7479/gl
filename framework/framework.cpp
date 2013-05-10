@@ -2,9 +2,6 @@
 #include<SFML/Window.hpp>
 #include<iostream>
 
-int global::winSizeX;
-int global::winSizeY;
-
 void GlewInit()
 {
 	GLenum err = glewInit();
@@ -12,28 +9,54 @@ void GlewInit()
 		std::cerr<<"Error "<<glewGetErrorString(err);
 }
 
-int main()
+// int main()
+// {
+// }
+namespace mm 
 {
-	sf::Window win(sf::VideoMode(1000,600,32),"Manasij");
-	global::winSizeX=win.getSize().x;
-	global::winSizeY=win.getSize().y;
-	GlewInit();
-	setup();
-	while(win.isOpen())
+	Framework::Framework(std::string n,int x,int y)
 	{
-		win.display();
-		draw();
-		sf::Event eve;
-		while(win.pollEvent(eve))
+		auto v = [](){std::cerr<<"Default Function.\n";};
+		auto v2i=[](int,int){std::cerr<<"Default Function.\n";};
+		setup=v;
+		draw=v;
+		resize=v2i;
+		mousePressAny=v2i;
+		
+		winName=n;
+		winSizeX=x;
+		winSizeY=y;
+	}
+	int Framework::operator()()
+	{
+		sf::Window win(sf::VideoMode(winSizeX,winSizeY,32),winName);
+
+		GlewInit();
+		setup();
+		while(win.isOpen())
 		{
-			if(eve.type==sf::Event::Closed)
-				win.close();
-			else if (eve.type==sf::Event::Resized)
+			win.display();
+			draw();
+			sf::Event eve;
+			while(win.pollEvent(eve))
 			{
-				global::winSizeX=win.getSize().x;
-				global::winSizeY=win.getSize().y;
+				if(eve.type==sf::Event::Closed)
+					win.close();
+				else if (eve.type==sf::Event::Resized)
+				{
+					winSizeX=win.getSize().x;
+					winSizeY=win.getSize().y;
+					resize(winSizeX,winSizeY);
+				}
+				else if(eve.type==sf::Event::MouseButtonPressed)
+				{
+					mousePressAny(eve.mouseButton.x,eve.mouseButton.y);
+				}
 			}
 		}
+		return 0;
+
 	}
-	return 0;
+
+
 }

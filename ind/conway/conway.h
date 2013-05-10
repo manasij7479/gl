@@ -22,16 +22,29 @@ namespace mm
 				data.push_back(row);
 			}
 		}
+		void round(int& x,int& y)
+		{
+			if(x<0)
+				x=sx-x;
+			if(y<0)
+				y=sy-y;
+			if(x>=sx)
+				x=x-sx;
+			if(y>=sy)
+				y=y-sy;
+			if(!(x>=0 && y>=0 && x<sx && y<sy))
+				round(x,y);
+			
+		}
 		int at(int x,int y)
 		{
-			if(x>=0 && y>=0 && x<sx && y<sy)
-				return data[x][y];
-			else return 0;
+			round(x,y);
+			return data[x][y];			
 		}
 		void set(int x,int y)
 		{
-			if(x>=0 && y>=0 && x<sx && y<sy)
-				data[x][y]=1;
+			round(x,y);
+			data[x][y]=1;
 		}
 		void fill_random(int x)
 		{

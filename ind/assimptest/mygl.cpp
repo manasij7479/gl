@@ -25,7 +25,7 @@ void setup()
 	auto prog = mesh->getProgram();
 	
 	
-	glm::mat4 p = glm::perspective(60.0f,global::winSizeX*1.0f/global::winSizeY,0.1f,100.0f);
+	glm::mat4 p = glm::perspective(60.0f,1000*1.0f/600,0.1f,100.0f);
 	glm::mat4 v = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -5.0f)); // translate back 5 units
 	glm::mat4 m= glm::rotate(glm::mat4(1.0f),30.0f,glm::vec3(1.0f,0.0f,0.0f));
 	
@@ -43,4 +43,11 @@ void draw()
     mesh->getProgram()->uniformMat4(m,"m");
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	mesh->draw();
+}
+int main()
+{
+    mm::Framework f;
+    f.drawFunction(draw);
+    f.setupFunction(setup);
+    return f();
 }
