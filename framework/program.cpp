@@ -48,6 +48,13 @@ namespace mm
 		auto loc = glGetUniformLocation(handle,name.c_str());
 		glUniformMatrix4fv(loc,1,GL_FALSE,&m[0][0]);
 	}
+	void Program::uniformVec4(glm::vec4 v, std::string name)
+	{
+		auto u = Use(handle);
+		auto loc = glGetUniformLocation(handle,name.c_str());
+		glUniform4fv(loc,1,&v[0]);
+	}
+
 
 	
 	

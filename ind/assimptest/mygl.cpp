@@ -1,10 +1,12 @@
 #include "framework.h"
 #include "assimpmesh.h"
 #include <glm/glm.hpp>  
+#include <glm/core/type_mat.hpp>
+#include <glm/core/type_vec4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include<iostream>
-#include<ctime>
-#include<cmath>
+#include <iostream>
+#include <ctime>
+#include <cmath>
 mm::Mesh* mesh;
 std::clock_t init;
 float omega =30.0f;
@@ -30,6 +32,9 @@ void setup()
 	prog->uniformMat4(p,"p");
 	prog->uniformMat4(m,"m");
 	prog->uniformMat4(v,"v");
+	
+	prog->uniformVec4(glm::vec4(0.0f,0.0f,-1.0f,0.0f),"lightDir");
+	prog->uniformVec4(glm::vec4(0.0f,1.0f,0.0f,0.0f),"baseColor");
 }
 void draw()
 {

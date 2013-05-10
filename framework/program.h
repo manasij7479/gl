@@ -23,6 +23,13 @@ namespace mm
 		}
 		
 		void uniformMat4(glm::mat4 m,std::string name);
+		void uniformVec4(glm::vec4 v,std::string name);
+		void uniformVec4(float x,float y,float z,float w,std::string name)
+		{
+			glm::vec4 v(x,y,z,w);
+			uniformVec4(v,name);
+			
+		};
 	private:
 		GLuint handle;
 		const std::vector<Shader>& shader_list;
