@@ -7,6 +7,7 @@
 mm::Mesh* mesh;
 mm::Grid* grid;
 int init;
+bool paused=false;
 void setup()
 {
 	glClearColor(1,1,1,1);
@@ -39,16 +40,32 @@ void draw()
 				mesh->draw();
 			}
 		}
-	if(std::clock()-init > CLOCKS_PER_SEC/2)
+	if(std::clock()-init > CLOCKS_PER_SEC/2 && !paused)
 	{
 		grid->update();
 		init=std::clock();
 	}
 }
+void mouse(int x,int y)
+{
+	grid->toggle(x/10,y/10);
+}
+void resize(int x,int y)
+{
+	glm::mat4 p = glm::ortho(0.0f,x*1.0f,y*1.0f,0.0f);
+	mesh->getProgram()->uniformMat4(p,"p");
+}
+void toggle()
+{
+	paused=!paused;
+}
 int main()
 {
-	mm::Framework f;
+	mm::Framework f("Conway");
 	f.drawFunction(draw);
 	f.setupFunction(setup);
+	f.mouseAnyFunction(mouse);
+	f.keyAnyFunction(toggle);
+	f.resizeFunction(resize);
 	return f();
 }

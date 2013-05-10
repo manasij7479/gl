@@ -52,6 +52,10 @@ namespace mm
 				{
 					mousePressAny(eve.mouseButton.x,eve.mouseButton.y);
 				}
+				else if(eve.type==sf::Event::KeyPressed)
+				{
+					keyPressAny();
+				}
 			}
 		}
 		return 0;

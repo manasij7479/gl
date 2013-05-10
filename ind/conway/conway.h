@@ -46,6 +46,11 @@ namespace mm
 			round(x,y);
 			data[x][y]=1;
 		}
+		void toggle(int x,int y)
+		{
+			round(x,y);
+			data[x][y]=!data[x][y];
+		}
 		void fill_random(int x)
 		{
 			for(int n=0;n<x;++n)
