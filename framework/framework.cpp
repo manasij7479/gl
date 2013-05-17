@@ -22,6 +22,7 @@ namespace mm
 		draw=v;
 		resize=v2i;
 		mousePressAny=v2i;
+		keyPressAny=v;
 		
 		winName=n;
 		winSizeX=x;

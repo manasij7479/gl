@@ -9,30 +9,41 @@ namespace mm
 	class Grid
 	{
 	public:
-		Grid(int sizex,int sizey):sx(sizex),sy(sizey)
+		Grid(int sizex,int sizey)
+		:sizeX(sizex),sizeY(sizey)
 		{
 			std::srand(std::time(nullptr));
 			std::vector<int> row;
-			for(int i=0;i<sx;++i)
+			for(int i=0;i<sizeX;++i)
 			{
-				for(int j=0;j<sy;++j)
+				for(int j=0;j<sizeY;++j)
 				{
 					row.push_back(0);
 				}
 				data.push_back(row);
 			}
 		}
+		int& getX()
+		{
+			return sizeX;
+		}
+		int& getY()
+		{
+			return sizeY;
+		}
 		void round(int& x,int& y)
 		{
+			if((x>=0 && y>=0 && x<sizeX && y<sizeY))
+				return;
 			if(x<0)
-				x=sx-x;
+				x=sizeX-x;
 			if(y<0)
-				y=sy-y;
-			if(x>=sx)
-				x=x-sx;
-			if(y>=sy)
-				y=y-sy;
-			if(!(x>=0 && y>=0 && x<sx && y<sy))
+				y=sizeY-y;
+			if(x>=sizeX)
+				x=x-sizeX;
+			if(y>=sizeY)
+				y=y-sizeY;
+			if(!(x>=0 && y>=0 && x<sizeX && y<sizeY))
 				round(x,y);
 			
 		}
@@ -46,6 +57,11 @@ namespace mm
 			round(x,y);
 			data[x][y]=1;
 		}
+		void reset(int x,int y)
+		{
+			round(x,y);
+			data[x][y]=0;
+		}
 		void toggle(int x,int y)
 		{
 			round(x,y);
@@ -55,17 +71,17 @@ namespace mm
 		{
 			for(int n=0;n<x;++n)
 			{
-				int i=rand()%sx;
-				int j=rand()%sy;
+				int i=rand()%sizeX;
+				int j=rand()%sizeY;
 				set(i,j);
 			}
 		}
 		void update()
 		{
-			Grid* g = new Grid(sx,sy);
-			for(int i=0;i<sx;++i)
+			Grid* g = new Grid(sizeX,sizeY);
+			for(int i=0;i<sizeX;++i)
 			{
-				for(int j=0;j<sy;++j)
+				for(int j=0;j<sizeY;++j)
 				{
 					int n=
 					at(i-1,j-1)+
@@ -100,7 +116,8 @@ namespace mm
 			delete g;
 		}
 	private:
-		int sx,sy;
+		int sizeX,sizeY;
+// 		float scaleX,scaleY;
 		std::vector<std::vector<int>> data;
 	};
 }
