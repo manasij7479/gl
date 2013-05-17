@@ -6,7 +6,7 @@
 #include<iostream>
 #include<ctime>
 #include<cmath>
-#include<SOIL/SOIL.h>
+#include "soilimage.h"
 mm::Mesh* mesh;
 void setup()
 {
@@ -30,8 +30,10 @@ void setup()
 // 	unsigned char* image =
 //     SOIL_load_image( "square2.jpeg", &width, &height, 0, SOIL_LOAD_RGB );
 // 	glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,GL_UNSIGNED_BYTE, image );
+	
 // 	
-	mm::Texture tex("square.jpg",GL_CLAMP_TO_EDGE,GL_LINEAR);
+	mm::Image* img = new mm::SoilImage("square.jpg");
+	mm::Texture tex(*img,GL_CLAMP_TO_EDGE,GL_LINEAR);
 	
 	glm::mat4 p = glm::perspective(60.0f,1000*1.0f/600,0.1f,100.0f);
 	glm::mat4 v = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0f, -5.0f, -10.0f)); // Create our view matrix which will translate us back 5 units  
