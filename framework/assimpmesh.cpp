@@ -115,7 +115,7 @@ namespace mm
 	
 	void AssimpMesh::draw()
 	{
-		glClear(GL_COLOR_BUFFER_BIT);
+// 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(prog->getHandle());
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES,isize,GL_UNSIGNED_INT,0);

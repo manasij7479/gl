@@ -36,7 +36,5 @@ int main(int argc,char** argv)
 	mm::Framework frame(name,img->width(),img->height());
 	frame.drawFunction(draw);
 	frame.setupFunction(setup);
-	
-	
 	return frame();
 }
