@@ -21,6 +21,8 @@
 #include <assimp/postprocess.h> // Post processing flags
 #include "assimpmesh.h"
 #include<stdexcept>
+///TODO Lot of code repeat here, abstract VBO and VAO
+
 namespace mm
 {
 	AssimpMesh::AssimpMesh(const std::string& dataf, Program* prog_)
@@ -31,7 +33,6 @@ namespace mm
 			aiProcess_CalcTangentSpace |
 			aiProcess_Triangulate |
 			aiProcess_JoinIdenticalVertices |
-			aiProcess_SortByPType|
 			aiProcess_GenNormals );
 		if(!scene)
 			throw(std::runtime_error("Loading "+dataf+" failed: "+importer.GetErrorString()));
@@ -115,7 +116,6 @@ namespace mm
 	
 	void AssimpMesh::draw()
 	{
-// 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(prog->getHandle());
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES,isize,GL_UNSIGNED_INT,0);
