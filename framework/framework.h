@@ -4,6 +4,7 @@
 #include<functional>
 #include "shader.h"
 #include "program.h"
+#include<SFML/Window.hpp>
 
 namespace mm
 {
@@ -12,7 +13,7 @@ namespace mm
 	public:
 		Framework(std::string n="Manasij",int x=1000,int y=600);
 		int operator()();
-		
+		int update();
 		void setupFunction(std::function<void()> f){setup=f;}
 		void drawFunction(std::function<void()> f){draw = f;}
 		void mouseAnyFunction(std::function<void(int,int)> f){mousePressAny=f;}
@@ -30,7 +31,7 @@ namespace mm
 		
 		std::string winName;
 		int winSizeX,winSizeY;
-		
+		sf::Window& win;
 	};
 }
 #endif

@@ -10,13 +10,14 @@ namespace mm
 	{
 	public:
 		Program(const std::vector<Shader>& input);
+		Program(std::string vsfname,std::string fsfname);
 		~Program();
-		GLuint getHandle();
+		GLuint getHandle() const;
 		
 		
 		template <typename Function>
 		typename  std::result_of<Function()>::type
-		useFor(Function foo)
+		useFor(Function foo) const 
 		{
 			Use use(handle);
 			return foo();
@@ -28,7 +29,6 @@ namespace mm
 		{
 			glm::vec4 v(x,y,z,w);
 			uniformVec4(v,name);
-			
 		};
 	private:
 		GLuint handle;
@@ -41,7 +41,6 @@ namespace mm
 			~Use(){glUseProgram(0);};
 		};
 	};
-	
 	
 	
 }

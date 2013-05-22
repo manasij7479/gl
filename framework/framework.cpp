@@ -14,7 +14,7 @@ void GlewInit()
 // }
 namespace mm 
 {
-	Framework::Framework(std::string n,int x,int y)
+	Framework::Framework(std::string n,int x,int y):win(*new sf::Window(sf::VideoMode(x,y,32),n))
 	{
 		auto v = [](){std::cerr<<"Default Function.\n";};
 		auto v2i=[](int,int){std::cerr<<"Default Function.\n";};
@@ -27,12 +27,12 @@ namespace mm
 		winName=n;
 		winSizeX=x;
 		winSizeY=y;
+		
+		GlewInit();
+		
 	}
 	int Framework::operator()()
 	{
-		sf::Window win(sf::VideoMode(winSizeX,winSizeY,32),winName);
-
-		GlewInit();
 		setup();
 		while(win.isOpen())
 		{
@@ -60,8 +60,16 @@ namespace mm
 			}
 		}
 		return 0;
-
 	}
+	int Framework::update()
+	{
+		if(!win.isOpen())
+			return -1;
+		win.display();
+		return 0;
+	}
+	
+
 
 
 }

@@ -3,6 +3,15 @@
 #include <stdexcept>
 namespace mm
 {
+	Program::Program(std::string vsfname, std::string fsfname)
+	:Program
+	(
+		{
+				mm::Shader(GL_VERTEX_SHADER,vsfname),
+				mm::Shader(GL_FRAGMENT_SHADER,fsfname)
+		}
+	)
+	{}
 	Program::Program(const std::vector<Shader>& input):shader_list(input)
 	{
 		handle = glCreateProgram();
@@ -37,7 +46,7 @@ namespace mm
 		}
 		glDeleteProgram(handle);
 	}
-	GLuint Program::getHandle()
+	GLuint Program::getHandle()const
 	{
 		return handle;
 	}
