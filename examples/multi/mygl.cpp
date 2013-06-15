@@ -26,14 +26,14 @@ void setup()
 	
 	
 	glm::mat4 p = glm::perspective(60.0f,1000*1.0f/600,0.1f,100.0f);
-	glm::mat4 v = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -5.0f)); // translate back 5 units
+	glm::mat4 v = glm::translate(glm::mat4(1.0f), glm::vec3(0.85f, 1.0f, -5.0f)); // translate back 5 units
 	glm::mat4 m= glm::rotate(glm::mat4(1.0f),0.0f,glm::vec3(1.0f,0.0f,0.0f));
 	
 	prog1->uniformMat4(p,"p");
 	prog1->uniformMat4(m,"m");
 	prog1->uniformMat4(v,"v");
 	
-	v = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, -10.0f));
+	v = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, -5.0f));
 	m= glm::rotate(glm::mat4(1.0f),30.0f,glm::vec3(1.0f,1.0f,0.0f));
 	
 	prog2->uniformMat4(p,"p");
