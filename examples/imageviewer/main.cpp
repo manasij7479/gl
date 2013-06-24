@@ -1,7 +1,7 @@
 #include "framework.h"
 #include <iostream>
-#include "texture2d.h"
-#include "soilimage.h"
+#include "tex/texture2d.h"
+#include "tex/soilimage.h"
 #include "oldmesh.h"
 
 #include <glm/glm.hpp>  
@@ -14,7 +14,6 @@ void setup()
 	glClearColor(1,1,1,1);
 	mesh = new mm::OldMesh("simpledata","v.glsl","f.glsl");
 	mm::Texture tex(*img,GL_CLAMP_TO_EDGE,GL_LINEAR);
-	
 }
 void draw()
 {

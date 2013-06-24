@@ -68,6 +68,30 @@ namespace mm
 		win.display();
 		return 0;
 	}
+	void Framework::placeHolderEventHandler()
+	{
+		sf::Event eve;
+		while(win.pollEvent(eve))
+		{
+			if(eve.type==sf::Event::Closed)
+				win.close();
+			else if (eve.type==sf::Event::Resized)
+			{
+				winSizeX=win.getSize().x;
+				winSizeY=win.getSize().y;
+				resize(winSizeX,winSizeY);
+			}
+			else if(eve.type==sf::Event::MouseButtonPressed)
+			{
+				mousePressAny(eve.mouseButton.x,eve.mouseButton.y);
+			}
+			else if(eve.type==sf::Event::KeyPressed)
+			{
+				keyPressAny();
+			}
+		}	
+	}
+
 	
 
 

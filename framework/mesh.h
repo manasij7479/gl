@@ -44,6 +44,7 @@ namespace mm
 // 		{
 // 			return prog;
 // 		}
+// 		virtual ~Mesh()=0;
 	private:
 // 		mm::Program* prog;
 // 		GLuint vao;

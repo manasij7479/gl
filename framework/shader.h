@@ -9,7 +9,7 @@ namespace mm
 	public:
 		Shader(GLenum Type,std::string filename);
 		~Shader();
-		GLuint getHandle();
+		GLuint getHandle() const;
 	private:
 		GLuint handle;
 		GLenum shader_type;

@@ -40,7 +40,7 @@ namespace mm
 	
 	Program::~Program()
 	{
-		for(auto shader:shader_list)
+		for(auto& shader:shader_list)
 		{
 			glDetachShader(handle,shader.getHandle());
 		}

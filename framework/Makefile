@@ -1,9 +1,9 @@
 CXX:= clang++
-AR:= ar
 CXXFLAGS :=-c -Wall -std=c++11 -g
 # LDFLAGS := -lpthread -lGL -lGLEW -lsfml-system -lsfml-window
 # Sources are all .cpp files in this dir
-SRCS := $(wildcard *.cpp)
+SRCDIRS := . tex
+SRCS := $(foreach srcdir,$(SRCDIRS),$(wildcard $(srcdir)/*.cpp))
 # Object files are everything in $SRCS, with the .cpp replaced by a .o
 OBJS := $(patsubst %.cpp, %.o, $(SRCS))
 TARGET := libframework.a
@@ -22,7 +22,7 @@ default : $(TARGET)
 # Use all the requisites ($^), as input files (the .o files) for the linker
 # Output file is $TARGET, which is executable_name
 $(TARGET) : $(OBJS)
-	$(AR) rcs $(TARGET)  $^
+	ar rcs $(TARGET)  $^
 
 # Simple clean up target
 clean :

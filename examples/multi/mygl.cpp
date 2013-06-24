@@ -33,7 +33,8 @@ void setup()
 	prog1->uniformMat4(m,"m");
 	prog1->uniformMat4(v,"v");
 	
-	v = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, -5.0f));
+	v = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, -5.0666f));
+	
 	m= glm::rotate(glm::mat4(1.0f),30.0f,glm::vec3(1.0f,1.0f,0.0f));
 	
 	prog2->uniformMat4(p,"p");
@@ -55,7 +56,11 @@ void draw()
 int main()
 {
     mm::Framework f;
-    f.drawFunction(draw);
-    f.setupFunction(setup);
+	setup();
+	while(f.update()!=-1)
+	{
+		draw();
+		f.placeHolderEventHandler();
+	}
     return f();
 }

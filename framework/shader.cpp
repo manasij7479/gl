@@ -44,7 +44,7 @@ namespace mm
 	{
 		glDeleteShader(handle);
 	}
-	GLuint Shader::getHandle()
+	GLuint Shader::getHandle()const
 	{
 		return handle;
 	}

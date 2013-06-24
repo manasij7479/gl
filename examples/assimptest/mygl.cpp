@@ -33,7 +33,7 @@ void setup()
 	prog->uniformMat4(m,"m");
 	prog->uniformMat4(v,"v");
 	
-	prog->uniformVec4(glm::vec4(1.0f,1.0f,1.0f,0.0f),"lightDir");
+	prog->uniformVec4(glm::vec4(0.0f,0.0f,-1.0f,0.0f),"lightDir");
 	prog->uniformVec4(glm::vec4(0.0f,1.0f,0.0f,0.0f),"baseColor");
 }
 void draw()
