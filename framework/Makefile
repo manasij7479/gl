@@ -6,6 +6,7 @@ SRCDIRS := . tex
 SRCS := $(foreach srcdir,$(SRCDIRS),$(wildcard $(srcdir)/*.cpp))
 # Object files are everything in $SRCS, with the .cpp replaced by a .o
 OBJS := $(patsubst %.cpp, %.o, $(SRCS))
+MATDIR:= ../../mat
 TARGET := libframework.a
 
 # Default target makes the executable
@@ -16,7 +17,7 @@ default : $(TARGET)
 # Use the requisite ($<) as input (the .cpp file)
 # Use the target name ($@) as the output file name (the .o file)
 %.o : %.cpp %.h
-	$(CXX) $(CXXFLAGS) $< -o $@
+	$(CXX) $(CXXFLAGS) $< -o $@ -I $(MATDIR)
 
 # Make the executable require all the object files
 # Use all the requisites ($^), as input files (the .o files) for the linker
