@@ -3,12 +3,12 @@
 #include <GL/glew.h>
 namespace mm
 {
+	
 	class VertexBufferObject
 	{
 	public:
-		GLuint handle;
-		GLenum target;
-		
+		VertexBufferObject(){glGenBuffers(1,&handle);};
+		VertexBufferObject(GLuint buf):handle(buf){};
 		class bind
 		{
 		public:
@@ -23,7 +23,14 @@ namespace mm
 		private:
 			GLenum target;
 		};
+		GLuint getHandle()
+		{
+			return handle;
+		}
+	private:
+		GLuint handle;
 	};
+	
 	typedef VertexBufferObject VBO;
 }
 #endif
