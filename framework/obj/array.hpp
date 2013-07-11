@@ -10,6 +10,7 @@ namespace mm
 	public:
 	private:
 		VBO vbo;
+		void* data; 
 	};
 }
 #endif
