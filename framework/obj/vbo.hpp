@@ -3,7 +3,6 @@
 #include <GL/glew.h>
 namespace mm
 {
-	
 	class VertexBufferObject
 	{
 	public:
@@ -32,5 +31,9 @@ namespace mm
 	};
 	
 	typedef VertexBufferObject VBO;
+	
+// 	VBO make_vbo();
+// 	std::vector<VBO> make_vbo();
+	//^..not yet sure how to orchestrate thse abstractions
 }
 #endif
